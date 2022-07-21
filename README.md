@@ -55,3 +55,17 @@ Kicsekkolt branch pointer visszahúzása a megadott pozícióra. A parancs lefut
 `git revert HEAD`
 
 A HEAD által kijelölt commit törlése úgy, hogy létrehoz egy olyan új commit-ot, ami a legutolsó commit törlését tartalmazza. Remote repository használata során ezzel töröljünk.
+
+# Egyéb merge technikák
+
+`git cherry-pick <commit hash #1> <commit hash #2> ...`
+
+A megadott commit-ok másolása a HEAD alá.
+
+`git rebase -i <melyik commit-tól induljon a rebase>`
+
+Egy interaktív ablakban megadjuk, hogy a megadott commit alatt lévő commit-ok közül melyeket másoljuk a megadott commit alá egy új ágba. Ezután a régi ág törlésre kerül.
+
+Pl. `git rebase -i HEAD~4`
+
+![interaktív rebase](./assets/images/interactive_rebase.png)
