@@ -42,7 +42,7 @@ HEAD mozgatása a megadott pointer szülőjére.
 
 `git checkout <pointer>~<lépésszám>`
 
-HEAD mozgatása a megadott pointer lépésszámmal definiált ősére. Pl. `git checkout main~3`, a HEAD mozgatás a main 3-ik ősére.
+HEAD mozgatása a megadott pointer lépésszámmal definiált ősére. Pl. `git checkout main~3`, a HEAD mozgatás a `main` 3-ik ősére.
 
 `git branch -f <branch> <branch/relatív pointer/commit hash>`
 
@@ -56,16 +56,36 @@ Kicsekkolt branch pointer visszahúzása a megadott pozícióra. A parancs lefut
 
 A HEAD által kijelölt commit törlése úgy, hogy létrehoz egy olyan új commit-ot, ami a legutolsó commit törlését tartalmazza. Remote repository használata során ezzel töröljünk.
 
-# Egyéb merge technikák
+# Egyéb technikák
 
 `git cherry-pick <commit hash #1> <commit hash #2> ...`
 
-A megadott commit-ok másolása a HEAD alá.
+A megadott commit-ok másolása a HEAD alá. A commit-ok nem lehetnek a HEAD ősei.
 
 `git rebase -i <melyik commit-tól induljon a rebase>`
 
-Egy interaktív ablakban megadjuk, hogy a megadott commit alatt lévő commit-ok közül melyeket másoljuk a megadott commit alá egy új ágba. Ezután a régi ág törlésre kerül.
+Egy interaktív ablakban megadjuk, hogy a megadott commit és a HEAD között lévő commit-ok közül melyeket másoljuk a megadott commit alá egy új ágba.
 
 Pl. `git rebase -i HEAD~4`
 
 ![interaktív rebase](./assets/images/interactive_rebase.png)
+
+`git commit --amend`
+
+Az utolsó commit címének vagy tartalmának megváltoztatása. 
+
+Ha nem az utolsó commit-ot szeretnénk így frissíteni, akkor interaktív rebase-el módosíthatjuk a commit-ok sorrendjét úgy, hogy a frissítendő commit legyen az utolsó.
+
+Alternatív megoldás az, hogy kicsekkoljuk a módosítandó commit-ot és `amend`-el módosítjuk. Ezután a `main`-ről cherry-pick-elhetjük a nekünk kellő commit-okat.
+
+`git tag <label> <commit hash>`
+
+A megadott commit-hoz egy label (pl. v1.0) fűzése. Ha a commit hash-t elhagyjuk, akkor a HEAD-hez fűzi a label-t.
+
+`git describe <branch/relatív pointer/commit hash>`
+
+A megadott pointer ősei között melyik tag van legközelebb és hány commit-ra van tőle.
+
+pl. `git describe main` -> output: `v1_2_gC2` -> a `v1` tag van legközelebb, 2 commit-ra van, a `main` a C2 hash-el rendelkező commit-ra mutat.
+
+![describe](./assets/images/describe.png)
