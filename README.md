@@ -91,3 +91,11 @@ A megadott pointer ősei között melyik tag van legközelebb és hány commit-r
 pl. `git describe main` -> output: `v1_2_gC2` -> a `v1` tag van legközelebb, 2 commit-ra van, a `main` a C2 hash-el rendelkező commit-ra mutat.
 
 ![describe](./assets/images/describe.png)
+
+`git checkout HEAD~^2~2`
+
+Pointer mozgató utasítások láncolása:
+
+- `HEAD~`: a HEAD parent-je, ami egy merge commit, tehát 2 parent-je van
+- `^2`: a 2. parent
+- `~2`: 2 generációt felfelé ugrás
