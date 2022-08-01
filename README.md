@@ -76,7 +76,7 @@ Pl. `git rebase -i HEAD~4`
 
 Az utolsó commit címének vagy tartalmának megváltoztatása. 
 
-Ha nem az utolsó commit-ot szeretnénk így frissíteni, akkor interaktív rebase-el módosíthatjuk a commit-ok sorrendjét úgy, hogy a frissítendő commit legyen az utolsó.
+Előfordulhat, hogy nem az utolsó commit-ot szeretnénk módosítani. Ekkor interaktív rebase-el módosíthatjuk a commit-ok sorrendjét úgy, hogy a frissítendő commit legyen az utolsó.
 
 Alternatív megoldás az, hogy kicsekkoljuk a módosítandó commit-ot és `amend`-el módosítjuk. Ezután a `main`-ről cherry-pick-elhetjük a nekünk kellő commit-okat.
 
