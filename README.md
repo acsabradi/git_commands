@@ -66,6 +66,8 @@ A megadott commit-ok másolása a HEAD alá. A commit-ok nem lehetnek a HEAD ős
 
 Egy interaktív ablakban megadjuk, hogy a megadott commit és a HEAD között lévő commit-ok közül melyeket másoljuk a megadott commit alá egy új ágba.
 
+Az interaktív ablakban további szerkesztési lehetőségeink vannak (pl. milyen sorrendben legyenek a commit-ok bemásolva az új ágba).
+
 Pl. `git rebase -i HEAD~4`
 
 ![interaktív rebase](./assets/images/interactive_rebase.png)
