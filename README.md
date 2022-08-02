@@ -111,3 +111,41 @@ Pointer mozgató utasítások láncolása:
 Repository letöltése.
 
 > **Remote branch**: Mutatja, hogy a legutolsó szinkronizáláskor hol volt a remote repository egy adott branch-e, így láthatjuk, hogy hol tartunk a repository-hoz képest. Elnevezési konvenció: `<repository név>/<branch>`. A repository neve általában *origin*. Ha kicsekkoljuk a remote branch-et, akkor *detached HEAD* állapotba kerülünk, tehát a következő commit-jainkat nem fogja követni a branch pointer. A git ezzel jelzi, hogy nem lokális branch-re hivatkoztunk.
+
+`git fetch`
+
+Letölti azokat a commit-okat, melyek fent vannak a remote repóban, de nincsenek lokális repóban. Ezenkívül a remote branch pointer-t is frissíti.
+
+`git pull`
+
+Fetch + a letöltött commit-ok merge-ölése az aktuális branch-re.
+
+`git push` vagy `git push <remote repo név> <publikálandó lokális branch>`
+
+Lokális commit-ok publikálása a remote repón.
+
+## Publikálás eltérő history esetén
+
+Eltérő history azt jelenti, hogy egy olyan commit után (C1), ami lokálisan és remote-ban is szerepel, más-más commit következik lokálisan és remote-ban (C3 és C2).
+
+![diverged_history](./assets/images/diverged_history.png)
+
+Megoldás rebase-el:
+
+`git fetch; git rebase o/main; git push`
+
+![diverged_history_solution_rebase](./assets/images/diverged_history_solution_rebase.png)
+
+Rövidebben:
+
+`git pull --rebase; git push`
+
+Megoldás merge-el:
+
+`git fetch; git merge o/main; git push`
+
+![diverged_history_solution_rebase](./assets/images/diverged_history_solution_merge.png)
+
+Rövidebben:
+
+`git pull; git push`
