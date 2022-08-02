@@ -173,7 +173,7 @@ A kezdeti állapotban *foo* C1-re mutatott.
 
 Most már *foo* track-eli az *o/main*-t, így a fetch a *foo* alá húzta be a remote repóból jövő új commit-ot.
 
-A kapcsolat fordítva is működik: Ha egy a *foo* alatt lévő commit-ot publikálnánk, akkor arra a commit-ra ugrana a remote repó *main*-je.
+A kapcsolat fordítva is működik: Ha egy a *foo* alatt lévő commit-ot publikálnánk, akkor arra a commit-ra ugrana a remote repó *main*-je és az *origin/main* is.
 
 Ha egy már létező branch-et szeretnénk remote tracking-re állítani:
 
