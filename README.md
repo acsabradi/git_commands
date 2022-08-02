@@ -103,3 +103,11 @@ Pointer mozgató utasítások láncolása:
 - `HEAD~`: a HEAD parent-je, ami egy merge commit, tehát 2 parent-je van
 - `^2`: a 2. parent
 - `~2`: 2 generációt felfelé ugrás
+
+# Remote repository kezelése
+
+`git clone <repository URL>`
+
+Repository letöltése.
+
+> **Remote branch**: Mutatja, hogy a legutolsó szinkronizáláskor hol volt a remote repository egy adott branch-e, így láthatjuk, hogy hol tartunk a repository-hoz képest. Elnevezési konvenció: `<repository név>/<branch>`. A repository neve általában *origin*. Ha kicsekkoljuk a remote branch-et, akkor *detached HEAD* állapotba kerülünk, tehát a következő commit-jainkat nem fogja követni a branch pointer. A git ezzel jelzi, hogy nem lokális branch-re hivatkoztunk.
