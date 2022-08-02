@@ -22,9 +22,11 @@ A pointer mozgatása az új branch-re.
 
 Megadott branch merge-ölése arra a branch-re, amire a pointer mutat.
 
-`git rebase <branch név>`
+`git rebase <cél branch>`
 
-A pointer által kijelölt branch összes commit-jának másolása a megadott branch-re.
+A pointer által kijelölt branch összes commit-jának másolása a megadott branch-re. A másolt branch pointer-je is átkerül az utolsó commit-hoz.
+
+Alternatív használat: `git rebase <cél branch> <másolandó branch>` -> Így nem kell kicsekkolni azt a branch-et, amit másolni szeretnénk.
 
 # A pointer mozgatása
 
@@ -60,7 +62,9 @@ A HEAD által kijelölt commit törlése úgy, hogy létrehoz egy olyan új comm
 
 `git cherry-pick <commit hash #1> <commit hash #2> ...`
 
-A megadott commit-ok másolása a HEAD alá. A commit-ok nem lehetnek a HEAD ősei.
+A megadott commit-ok másolása a HEAD alá egy új ágba. A commit-ok nem lehetnek a HEAD ősei.
+
+A HEAD alá a megadott sorrendben fognak a cherry-pick-elt commit-ok kerülni. Így ez a parancs ugyanúgy tud sorrendet megadni, mint az interaktív rebase.
 
 `git rebase -i <melyik commit-tól induljon a rebase>`
 
