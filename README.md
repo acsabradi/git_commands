@@ -28,6 +28,10 @@ A pointer által kijelölt branch összes commit-jának másolása a megadott br
 
 Alternatív használat: `git rebase <cél branch> <másolandó branch>` -> Így nem kell kicsekkolni azt a branch-et, amit másolni szeretnénk.
 
+`git log --all --decorate --oneline --graph`
+
+Összes branch gráfjellegű history-ja. Ha nem fér ki a konzolra az összes bejegyzés, akkor nyillal lehet navigálni és Q-val kilépni.
+
 # A pointer mozgatása
 
 > **HEAD**: Speciális pointer, ami az éppen kicsekkolt (legfrissebb) commit-ra mutat. Alapesetben a HEAD egy branch-re referál. A branch is egy pointer-nek tekinthető.
@@ -149,3 +153,28 @@ Megoldás merge-el:
 Rövidebben:
 
 `git pull; git push`
+
+## Remote tracking
+
+A *remote tracking* a kapcsolat a *main* és az *origin/main* branch-ek között. Ez miatt:
+
+- pull esetén automatikusan a *main*-re merge-öl a remote repóból jövő változtatás
+- push esetén az *origin/main*-re kerülnek a publikált commit-ok
+
+Ez a kapcsolat repó klónozás esetén automatikusan beállítódik, de lehetőség van manuálisan is létrehozni remote track branch-et.
+
+Példa:
+
+A kezdeti állapotban *foo* C1-re mutatott.
+
+`git checkout -b foo o/main; git pull`
+
+![remote_tracking](./assets/images/remote_tracking.png)
+
+Most már *foo* track-eli az *o/main*-t, így a fetch a *foo* alá húzta be a remote repóból jövő új commit-ot.
+
+A kapcsolat fordítva is működik: Ha egy a *foo* alatt lévő commit-ot publikálnánk, akkor arra a commit-ra ugrana a remote repó *main*-je.
+
+Ha egy már létező branch-et szeretnénk remote tracking-re állítani:
+
+`git branch -u o/main foo`
