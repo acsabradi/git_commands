@@ -165,13 +165,11 @@ Ez a kapcsolat repó klónozás esetén automatikusan beállítódik, de lehető
 
 Példa:
 
-A kezdeti állapotban *foo* C1-re mutatott.
-
 `git checkout -b foo o/main; git pull`
 
 ![remote_tracking](./assets/images/remote_tracking.png)
 
-Most már *foo* track-eli az *o/main*-t, így a fetch a *foo* alá húzta be a remote repóból jövő új commit-ot.
+Most már *foo* track-eli az *o/main*-t, így a fetch a *foo* pointer-t az újonnan letöltött commit-ra teszi.
 
 A kapcsolat fordítva is működik: Ha egy a *foo* alatt lévő commit-ot publikálnánk, akkor arra a commit-ra ugrana a remote repó *main*-je és az *origin/main* is.
 
