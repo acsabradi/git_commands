@@ -20,7 +20,7 @@ A pointer mozgatása az új branch-re.
 
 `git merge <branch név>`
 
-Megadott branch merge-ölése arra a branch-re, amire a pointer mutat.
+Megadott branch merge-ölése arra a branch-re, amire ki van csekkolva. A kicsekkolt branch pointer-je a merge commit-ra lép.
 
 `git rebase <cél branch>`
 
@@ -84,7 +84,7 @@ Pl. `git rebase -i HEAD~4`
 
 Az utolsó commit címének vagy tartalmának megváltoztatása. 
 
-Előfordulhat, hogy nem az utolsó commit-ot szeretnénk módosítani. Ekkor interaktív rebase-el módosíthatjuk a commit-ok sorrendjét úgy, hogy a frissítendő commit legyen az utolsó.
+Előfordulhat, hogy nem az utolsó commit-ot szeretnénk módosítani. Ekkor interaktív rebase-el vagy cherry-pick-el módosíthatjuk a commit-ok sorrendjét úgy, hogy a frissítendő commit legyen az utolsó.
 
 Alternatív megoldás az, hogy kicsekkoljuk a módosítandó commit-ot és `amend`-el módosítjuk. Ezután a `main`-ről cherry-pick-elhetjük a nekünk kellő commit-okat.
 
@@ -136,7 +136,7 @@ Ez a parancs struktúra a másik irányba, tehát fetch-nél is működik.
 
 `git push <remote repo név> <lokális refspec/source>:<remote repó branch/target>`
 
-A lokális refspec-el akár egy commit-ot is kijelölhetünk, amit testszőleges remote branch alá publikálhatunk.
+A lokális refspec-el akár egy commit-ot is kijelölhetünk, amit tetszőleges remote branch alá publikálhatunk.
 
 Ez a parancs struktúra a másik irányba, tehát fetch-nél is működik, de gyakorlatban nem használják.
 
@@ -144,7 +144,7 @@ Példa: `git push origin foo^:main`
 
 ![pull_colon_refspec](./assets/images/pull_colon_refspec.png)
 
-A parancs akkor is működik, ha nem létező remote branch-et adunk meg, mert ekkor létrehozza az új remote branch-et és oda végzi el a publikálást.
+A parancs akkor is működik, ha nem létező target branch-et adunk meg, mert ekkor létrehoz egy új remote (push esetén) vagy lokális branch-et (fetch esetén) és oda végzi el a publikálást.
 
 **Üres source**
 
@@ -157,6 +157,14 @@ A parancs akkor is működik, ha nem létező remote branch-et adunk meg, mert e
 `git pull origin foo` == `git fetch origin foo; git merge o/foo`
 
 `git pull origin bar~1:bugFix` == `git fetch origin bar~1:bugFix; git merge bugFix`
+
+**Példa**
+
+![colon_refspec_initial](./assets/images/colon_refspec_creates_branch_initial_state.png)
+
+`git pull origin bar:foo` -> Az *origin* remote repóból töltsük le a *bar* remote branch commit-jeit. A cél a *foo* lokális branch, ami viszont még nem létezik, tehát a parancs létre fogja azt hozni. A *bar* remote branch őse (C1) megtalálható lokálisan is, tehát az alá fog kerülni a C3 commit (a C4/main-el párhuzamosan, hiszen még a *pull* parancs *fetch* szakaszában tartunk, és a *fetch* működésének alapelve, hogy a letöltött commit-ok nem módosítják a lokális fájlokat, ezért kerülnek a letöltött commit-ok külön ágra), a *foo* branch is idekerül. Ezután jön a merge, és mivel jelenleg a *main* van kicsekkolva, ezért az alá fog merge-ölődni a letöltött C3 commit.
+
+![colon_refspec_final](./assets/images/colon_refspec_creates_branch_final_state.png)
 
 ## Publikálás eltérő history esetén
 
