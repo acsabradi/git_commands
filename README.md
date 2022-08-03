@@ -62,7 +62,7 @@ Kicsekkolt branch pointer visszahúzása a megadott pozícióra. A parancs lefut
 
 A HEAD által kijelölt commit törlése úgy, hogy létrehoz egy olyan új commit-ot, ami a legutolsó commit törlését tartalmazza. Remote repository használata során ezzel töröljünk.
 
-# Egyéb technikák
+# Egyéb merge technikák
 
 `git cherry-pick <commit hash #1> <commit hash #2> ...`
 
@@ -118,15 +118,45 @@ Repository letöltése.
 
 `git fetch`
 
-Letölti azokat a commit-okat, melyek fent vannak a remote repóban, de nincsenek lokális repóban. Ezenkívül a remote branch pointer-t is frissíti.
+Letölti azokat a commit-okat, melyek fent vannak a remote repóban, de nincsenek lokális repóban. Ezenkívül a remote branch pointer-t is frissíti, a lokális branch pointer-t nem módosítja.
 
 `git pull`
 
-Fetch + a letöltött commit-ok merge-ölése az aktuális branch-re.
+Fetch végrehajtása, majd a letöltött commit-ok merge-ölése az aktuális branch-re.
 
-`git push` vagy `git push <remote repo név> <publikálandó lokális branch>`
+`git push`
 
 Lokális commit-ok publikálása a remote repón.
+
+`git push <remote repo név> <publikálandó lokális branch>`
+
+Külön megadhatjuk, hogy melyik branch-et melyik remote repóra akarjuk publikálni.
+
+Ez a parancs struktúra a másik irányba, tehát fetch-nél is működik.
+
+`git push <remote repo név> <lokális refspec/source>:<remote repó branch/target>`
+
+A lokális refspec-el akár egy commit-ot is kijelölhetünk, amit testszőleges remote branch alá publikálhatunk.
+
+Ez a parancs struktúra a másik irányba, tehát fetch-nél is működik, de gyakorlatban nem használják.
+
+Példa: `git push origin foo^:main`
+
+![pull_colon_refspec](./assets/images/pull_colon_refspec.png)
+
+A parancs akkor is működik, ha nem létező remote branch-et adunk meg, mert ekkor létrehozza az új remote branch-et és oda végzi el a publikálást.
+
+**Üres source**
+
+`git push origin :foo` -> *foo* remote branch törlése
+
+`git fetch origin :bar` -> *bar* lokális branch létrehozása
+
+**Pull használata refspec-el**
+
+`git pull origin foo` == `git fetch origin foo; git merge o/foo`
+
+`git pull origin bar~1:bugFix` == `git fetch origin bar~1:bugFix; git merge bugFix`
 
 ## Publikálás eltérő history esetén
 
