@@ -1,10 +1,10 @@
-[Git parancsok vizualizációja](https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1)
+[**Git parancsok vizualizációja**](https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1)
 
 # Alapok
 
 `git commit`
 
-View-ban lévő változtatások commit-álása.
+Staged-ben lévő változtatások commit-álása.
 
 `git branch <branch név>`
 
@@ -54,15 +54,47 @@ HEAD mozgatása a megadott pointer lépésszámmal definiált ősére. Pl. `git 
 
 Branch pointer mozgatása a megadott pozícióhoz.
 
+`git revert HEAD`
+
+A HEAD által kijelölt commit törlése úgy, hogy létrehoz egy olyan új commit-ot, ami a kijelölt commit tartalmának törlését tartalmazza. Remote repository használata során ezzel töröljünk.
+
 `git reset <branch/relatív pointer/commit hash>`
 
 Kicsekkolt branch pointer visszahúzása a megadott pozícióra. A parancs lefutása után a megadott pozíció utáni commit-ok töröltnek tekinthetők. Remote repository használata során ne használjuk ezt a parancsot.
 
-`git revert HEAD`
+**Reset típusai**
 
-A HEAD által kijelölt commit törlése úgy, hogy létrehoz egy olyan új commit-ot, ami a legutolsó commit törlését tartalmazza. Remote repository használata során ezzel töröljünk.
+`git reset --soft <refspec>` -> A törölt commit-ok változtatásai staged állapotba kerülnek. 
 
-# Egyéb merge technikák
+> **Squash:** A resetelt commit-ok tartalmát változatlanul újra commit-oljuk.
+
+`git reset --hard <refspec>` -> A törölt commit-ok változtatásai törlésre kerülnek.
+
+`git reset --mixed <refspec>` -> A törölt commit-ok változtatásai unstaged állapotba kerülnek.
+
+![reset_modes](./assets/images/reset_modes.png)
+
+`git reflog`
+
+Kilistázza a repón végrehajtott git utasításokat a következő formában:
+
+`<rövidített commit hash> HEAD@{<sorszám>}: <rövid parancs leírás>`
+
+Annak a commit-nak a rövidített hashkódja látható a sor elején, amelyik az adott git parancs hatására jött létre.
+
+A sorszámozás 0-tól indul, a HEAD-é a nulla.
+
+Példa parancsleírásra:
+
+- `commit(merge)`
+- `commit`
+- `reset moving to head~1`
+- `commit(initial)`
+- stb.
+
+Ebből könnyen láthatjuk hogy pl. mikor adtunk ki merge parancsot, és van lehetőségünk a merge elé resetelni a következő módon: `git reset HEAD@{1}`, ahol a `HEAD@{1}` a merge előtti utolsó commit.
+
+# Merge technikák
 
 `git cherry-pick <commit hash #1> <commit hash #2> ...`
 
