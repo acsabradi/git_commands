@@ -2,6 +2,8 @@
 
 # Alapok
 
+![git_workflow](./assets/images/git_workflow.jpg)
+
 `git commit`
 
 Staged-ben lévő változtatások commit-álása.
